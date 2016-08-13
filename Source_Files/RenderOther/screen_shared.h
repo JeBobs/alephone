@@ -119,6 +119,10 @@ static ScreenMessage Messages[NumScreenMessages];
 
 /* SB */
 static struct ScriptHUDElement {
+	/* I don't like this convention, but I'll follow it. */
+	enum {
+		Len = 32
+	};
 	/* this needs optimized (sorry, making fun of my grandmother...) */
 	/* it's char[4] instead of int32 to make the OpenGL support simpler to implement */
 	unsigned char icon[1024];
@@ -272,6 +276,9 @@ void SetScriptHUDText(int player, int idx, const char* text) {
   idx %= MAXIMUM_NUMBER_OF_SCRIPT_HUD_ELEMENTS;
   if(!text) ScriptHUDElements[player][idx].text.clear();
   else ScriptHUDElements[player][idx].text = text;
+
+  strncpy(ScriptHUDElements[player][idx].text, text, ScriptHUDElement::Len);
+  ScriptHUDElements[player][idx].text[ScriptHUDElement::Len-1] = 0;
 }
 
 bool SetScriptHUDIcon(int player, int idx, const char* text, size_t rem) {
