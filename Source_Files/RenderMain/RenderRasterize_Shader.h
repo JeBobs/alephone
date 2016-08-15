@@ -54,7 +54,7 @@ protected:
 public:
 
 	RenderRasterize_Shader();
-	~RenderRasterize_Shader();
+        ~RenderRasterize_Shader();
 
 	virtual void setupGL(Rasterizer_Shader_Class& Rasterizer);
 

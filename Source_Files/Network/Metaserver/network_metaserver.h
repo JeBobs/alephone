@@ -311,17 +311,17 @@ private:
         void handleGameListMessage(GameListMessage* inMessage, CommunicationsChannel* inChannel);
 	void handleSetPlayerDataMessage(SetPlayerDataMessage*, CommunicationsChannel *) { }
 
-	std::unique_ptr<CommunicationsChannel>    m_channel;
-	std::unique_ptr<MessageInflater>          m_inflater;
-	std::unique_ptr<MessageDispatcher>        m_dispatcher;
+	std::unique_ptr<CommunicationsChannel>	m_channel;
+	std::unique_ptr<MessageInflater>		m_inflater;
+	std::unique_ptr<MessageDispatcher>	m_dispatcher;
 	std::unique_ptr<MessageDispatcher>        m_loginDispatcher;
-	std::unique_ptr<MessageHandler>           m_unexpectedMessageHandler;
-	std::unique_ptr<MessageHandler>           m_chatMessageHandler;
-	std::unique_ptr<MessageHandler>           m_keepAliveMessageHandler;
-	std::unique_ptr<MessageHandler>           m_broadcastMessageHandler;
-	std::unique_ptr<MessageHandler>           m_playerListMessageHandler;
-	std::unique_ptr<MessageHandler>           m_roomListMessageHandler;
-	std::unique_ptr<MessageHandler>           m_gameListMessageHandler;
+	std::unique_ptr<MessageHandler>		m_unexpectedMessageHandler;
+	std::unique_ptr<MessageHandler>		m_chatMessageHandler;
+	std::unique_ptr<MessageHandler>		m_keepAliveMessageHandler;
+	std::unique_ptr<MessageHandler>		m_broadcastMessageHandler;
+        std::unique_ptr<MessageHandler>		m_playerListMessageHandler;
+        std::unique_ptr<MessageHandler>		m_roomListMessageHandler;
+	std::unique_ptr<MessageHandler>		m_gameListMessageHandler;
 	std::unique_ptr<MessageHandler>           m_privateMessageHandler;
 	std::unique_ptr<MessageHandler>           m_setPlayerDataMessageHandler;
 	Rooms					m_rooms;

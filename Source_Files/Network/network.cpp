@@ -2161,7 +2161,11 @@ byte *NetReceiveGameData(bool do_physics)
   
   // handlers will take care of all messages, and when they're done
   // the server will send us this:
+<<<<<<< HEAD
   std::unique_ptr<EndGameDataMessage> endGameDataMessage(connection_to_server->receiveSpecificMessage<EndGameDataMessage>((Uint32) 60000, (Uint32) 30000));
+=======
+  unique_ptr<EndGameDataMessage> endGameDataMessage(connection_to_server->receiveSpecificMessage<EndGameDataMessage>((Uint32) 60000, (Uint32) 30000));
+>>>>>>> nuke auto_ptr (good riddance)
   if (endGameDataMessage.get()) {
     // game data was received OK
 	  if (do_physics) {

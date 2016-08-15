@@ -88,8 +88,8 @@ public:
 };
 
 
-RenderRasterize_Shader::RenderRasterize_Shader() = default;
-RenderRasterize_Shader::~RenderRasterize_Shader() = default;
+RenderRasterize_Shader::RenderRasterize_Shader() : blur(nullptr), RenderRasterizerClass() {}
+RenderRasterize_Shader::~RenderRasterize_Shader() {}
 
 /*
  * initialize some stuff
