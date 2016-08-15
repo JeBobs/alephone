@@ -18,6 +18,9 @@ dnl Init automake.
 AM_INIT_AUTOMAKE([subdir-objects])
 AM_CONFIG_HEADER([config.h])
 
+dnl Require C++11
+AX_CXX_COMPILE_STDCXX_11([ext], [mandatory])
+
 dnl Configure options.
 
 dnl AX_ARG_ENABLE(option, desc)
