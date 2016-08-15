@@ -86,7 +86,7 @@ void Music::FadeOut(short duration)
 	{
 		if (!music_level) music_play = false;
 		music_fading = true;
-		music_fade_start = SDL_GetTicks();
+		music_fade_start = machine_tick_count();
 		music_fade_duration = duration;
 	}
 }
@@ -128,7 +128,7 @@ void Music::Idle()
 
 	if (music_fading)
 	{
-		uint32 elapsed = SDL_GetTicks() - music_fade_start;
+		uint32 elapsed = machine_tick_count() - music_fade_start;
 		int max_vol = GetVolumeLevel() * MAXIMUM_SOUND_VOLUME / NUMBER_OF_SOUND_VOLUME_LEVELS;
 		int vol = max_vol - (elapsed * max_vol) / music_fade_duration;
 		if (vol <= 0)
