@@ -206,7 +206,7 @@ public:
 	void start(bool play_sound = true);
 
 	// Process pending events, returns "done" flag
-	bool process_events();
+	bool process_events(bool patient = false);
 
 	// Remove dialog from screen, returns dialog result
 	int finish(bool play_sound = true);
