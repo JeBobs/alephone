@@ -664,7 +664,9 @@ bool entering_map(bool restoring_saved)
 #if !defined(DISABLE_NETWORKING)
 	/* tell the keyboard controller to start recording keyboard flags */
 	if (game_is_networked) success= NetSync(); /* make sure everybody is ready */
+        else
 #endif // !defined(DISABLE_NETWORKING)
+          sync_heartbeat_count();
 
 	/* make sure nobody’s holding a weapon illegal in the new environment */
 	check_player_weapons_for_environment_change();
@@ -675,7 +677,7 @@ bool entering_map(bool restoring_saved)
 	randomize_scenery_shapes();
 
 //	reset_action_queues(); //¶¶
-//	sync_heartbeat_count();
+//	sync_heartbeat_count(); // SB: now doing this higher up
 //	set_keyboard_controller_status(true);
 
 	L_Call_Init(restoring_saved);
