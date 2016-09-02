@@ -435,7 +435,11 @@ bool Movie::Setup()
         video_stream->codec->codec_type = AVMEDIA_TYPE_VIDEO;
         video_stream->codec->width = view_rect.w;
         video_stream->codec->height = view_rect.h;
-        video_stream->codec->time_base = AVRational{1, TICKS_PER_SECOND};
+        if(graphics_preferences->movie_export_video_double_size) {
+          video_stream->codec->width *= 2;
+          video_stream->codec->height *= 2;
+        }
+        video_stream->codec->time_base = (AVRational){1, TICKS_PER_SECOND};
         video_stream->codec->pix_fmt = AV_PIX_FMT_YUV420P;
         video_stream->codec->flags |= AV_CODEC_FLAG_CLOSED_GOP;
         video_stream->codec->thread_count = get_cpu_count();
@@ -458,7 +462,7 @@ bool Movie::Setup()
     }
     if (success)
     {
-        av->video_bufsize = view_rect.w * view_rect.h * 4 + 10000;
+        av->video_bufsize = video_stream->codec->width * video_stream->codec->height * 4 + 10000;
         av->video_buf = static_cast<uint8_t *>(av_malloc(av->video_bufsize));
         success = av->video_buf;
         if (!success) err_msg = "Could not allocate video buffer";
@@ -475,14 +479,14 @@ bool Movie::Setup()
     }
     if (success)
     {
-        int numbytes = avpicture_get_size(video_stream->codec->pix_fmt, view_rect.w, view_rect.h);
+        int numbytes = avpicture_get_size(video_stream->codec->pix_fmt, video_stream->codec->width, video_stream->codec->height);
         av->video_data = static_cast<uint8_t *>(av_malloc(numbytes));
         success = av->video_data;
         if (!success) err_msg = "Could not allocate video data buffer";
     }
     if (success)
     {
-        avpicture_fill(reinterpret_cast<AVPicture *>(av->video_frame), av->video_data, video_stream->codec->pix_fmt, view_rect.w, view_rect.h);
+        avpicture_fill(reinterpret_cast<AVPicture *>(av->video_frame), av->video_data, video_stream->codec->pix_fmt, video_stream->codec->width, video_stream->codec->height);
     }
     
     // Open output audio stream
@@ -559,7 +563,7 @@ bool Movie::Setup()
                                      video_stream->codec->width,
                                      video_stream->codec->height,
                                      video_stream->codec->pix_fmt,
-                                     SWS_BILINEAR,
+                                     graphics_preferences->movie_export_video_double_size ? SWS_POINT : SWS_BILINEAR,
                                      NULL, NULL, NULL);
         success = av->sws_ctx;
         if (!success) err_msg = "Could not create video conversion context";

@@ -98,6 +98,7 @@ struct graphics_preferences_data
 
 	int16 movie_export_video_quality;
     int16 movie_export_audio_quality;
+  bool movie_export_video_double_size;
 };
 
 enum {
