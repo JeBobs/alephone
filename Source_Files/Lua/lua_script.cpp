@@ -355,8 +355,12 @@ public:
 
 	void Initialize() {
 		LuaState::Initialize();
-		luaL_requiref(State(), LUA_IOLIBNAME, luaopen_io, 1);
-		lua_pop(State(), 1);
+                if(environment_preferences->insecure_solo_lua && !insecure_lua) {
+                  luaL_requiref(State(), LUA_IOLIBNAME, luaopen_io, 1);
+                  lua_pop(State(), 1);
+                  luaL_requiref(State(), LUA_OSLIBNAME, luaopen_os, 1);
+                  lua_pop(State(), 1);
+                }
 	}
 };
 

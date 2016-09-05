@@ -2721,6 +2721,11 @@ static void environment_dialog(void *arg)
 	table->dual_add(use_solo_lua_w->label("Use Solo Script"), d);
 	table->dual_add(use_solo_lua_w, d);
 
+	w_enabling_toggle* insecure_solo_lua_w = new w_enabling_toggle(environment_preferences->insecure_solo_lua);
+	table->dual_add(insecure_solo_lua_w->label("Allow Dangerous Solo Scripts"), d);
+	table->dual_add(insecure_solo_lua_w, d);
+	use_solo_lua_w->add_dependent_widget(insecure_solo_lua_w);
+
 	w_file_chooser *solo_lua_w = new w_file_chooser("Choose Script", _typecode_netscript);
 	solo_lua_w->set_file(environment_preferences->solo_lua_file);
 	table->dual_add(solo_lua_w->label("Script File"), d);
@@ -2832,6 +2837,13 @@ static void environment_dialog(void *arg)
 		if (use_solo_lua != environment_preferences->use_solo_lua)
 		{
 			environment_preferences->use_solo_lua = use_solo_lua;
+			changed = true;
+		}
+		
+		bool insecure_solo_lua = insecure_solo_lua_w->get_selection() != 0;
+		if (insecure_solo_lua != environment_preferences->insecure_solo_lua)
+		{
+			environment_preferences->insecure_solo_lua = insecure_solo_lua;
 			changed = true;
 		}
 		
@@ -3452,6 +3464,7 @@ InfoTree environment_preferences_tree()
 	root.put_attr("smooth_text", environment_preferences->smooth_text);
 	root.put_attr_path("solo_lua_file", environment_preferences->solo_lua_file);
 	root.put_attr("use_solo_lua", environment_preferences->use_solo_lua);
+	root.put_attr("insecure_solo_lua", environment_preferences->insecure_solo_lua);
 	root.put_attr("use_replay_net_lua", environment_preferences->use_replay_net_lua);
 	root.put_attr("hide_alephone_extensions", environment_preferences->hide_extensions);
 	root.put_attr("film_profile", static_cast<uint32>(environment_preferences->film_profile));
@@ -3673,6 +3686,7 @@ static void default_environment_preferences(environment_preferences_data *prefer
 
 	preferences->solo_lua_file[0] = 0;
 	preferences->use_solo_lua = false;
+	preferences->insecure_solo_lua = false;
 	preferences->use_replay_net_lua = false;
 	preferences->hide_extensions = true;
 	preferences->film_profile = FILM_PROFILE_DEFAULT;
@@ -4395,6 +4409,7 @@ void parse_environment_preferences(InfoTree root, std::string version)
 	root.read_attr("smooth_text", environment_preferences->smooth_text);
 	root.read_path("solo_lua_file", environment_preferences->solo_lua_file);
 	root.read_attr("use_solo_lua", environment_preferences->use_solo_lua);
+	root.read_attr("insecure_solo_lua", environment_preferences->insecure_solo_lua);
 	root.read_attr("use_replay_net_lua", environment_preferences->use_replay_net_lua);
 	root.read_attr("hide_alephone_extensions", environment_preferences->hide_extensions);
 	

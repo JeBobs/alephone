@@ -196,8 +196,7 @@ static void usage(const char *prg_name)
 	  "\t[-s | --nosound]       Do not access the sound card\n"
 	  "\t[-m | --nogamma]       Disable gamma table effects (menu fades)\n"
           "\t[-j | --nojoystick]    Do not initialize joysticks\n"
-	  // Documenting this might be a bad idea?
-	  // "\t[-i | --insecure_lua]  Allow Lua netscripts to take over your computer\n"
+	  "\t[-i | --insecure_lua]  Allow Lua scripts to take over your computer\n"
 	  "\tdirectory              Directory containing scenario data files\n"
           "\tfile                   Saved game to load or film to play\n"
 	  "\nYou can also use the ALEPHONE_DATA environment variable to specify\n"

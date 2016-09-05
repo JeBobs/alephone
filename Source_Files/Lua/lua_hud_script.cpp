@@ -70,6 +70,7 @@ extern float AngleConvert;
 
 // Steal all this stuff
 extern bool MotionSensorActive;
+extern bool insecure_lua;
 
 extern struct view_data *world_view;
 extern struct static_data *static_world;
@@ -81,8 +82,13 @@ static const luaL_Reg lualibs[] = {
 {LUA_BITLIBNAME, luaopen_bit32},
 {LUA_MATHLIBNAME, luaopen_math},
 {LUA_DBLIBNAME, luaopen_debug},
-{LUA_IOLIBNAME, luaopen_io},
 {NULL, NULL}
+};
+
+static const luaL_Reg insecurelibs[] = {
+	{LUA_IOLIBNAME, luaopen_io},
+	{LUA_OSLIBNAME, luaopen_os},
+	{NULL, NULL}
 };
 
 void* L_Persistent_Table_Key();
@@ -115,6 +121,16 @@ public:
 			lua_pop(State(), 1);
 		}
 		
+		if (insecure_lua) 
+		{
+			const luaL_Reg *lib = insecurelibs;
+			for (; lib->func; lib++)
+			{
+				luaL_requiref(State(), lib->name, lib->func, 1);
+				lua_pop(State(), 1);
+			}
+		}
+
 		RegisterFunctions();
 	}
 
