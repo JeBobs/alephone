@@ -119,10 +119,6 @@ static ScreenMessage Messages[NumScreenMessages];
 
 /* SB */
 static struct ScriptHUDElement {
-	/* I don't like this convention, but I'll follow it. */
-	enum {
-		Len = 32
-	};
 	/* this needs optimized (sorry, making fun of my grandmother...) */
 	/* it's char[4] instead of int32 to make the OpenGL support simpler to implement */
 	unsigned char icon[1024];

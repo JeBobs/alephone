@@ -1559,7 +1559,7 @@ int Lua_Player_Print(lua_State *L)
 		return luaL_error(L, "print: incorrect argument type");
 
 	int player_index = Lua_Player::Index(L, 1);
-	if (player_index == (IsScriptHUDNonlocal() ? current_player_index : local_player_index))
+	if (player_index == IsScriptHUDNonlocal() ? current_player_index : local_player_index)
 	{
 		lua_getglobal(L, "tostring");
 		lua_insert(L, -2);
@@ -2309,6 +2309,18 @@ typedef L_Enum<Lua_ScoringMode_Name> Lua_ScoringMode;
 char Lua_ScoringModes_Name[] = "ScoringModes";
 typedef L_Container<Lua_ScoringModes_Name, Lua_ScoringMode> Lua_ScoringModes;
 
+static int Lua_Game_Get_View_Player(lua_State *L)
+{
+	Lua_Player::Push(L, current_player_index);
+	return 1;
+}
+
+static int Lua_Game_Get_Local_Player(lua_State *L)
+{
+	Lua_Player::Push(L, local_player_index);
+	return 1;
+}
+
 static int Lua_Game_Get_Dead_Players_Drop_Items(lua_State *L)
 {
 	lua_pushboolean(L, !(GET_GAME_OPTIONS() & _burn_items_on_death));
@@ -2563,6 +2575,8 @@ extern int L_Restore_Passed(lua_State *);
 extern int L_Restore_Saved(lua_State *);
 
 const luaL_Reg Lua_Game_Get[] = {
+	{"view_player", Lua_Game_Get_View_Player},
+	{"local_player", Lua_Game_Get_Local_Player},
 	{"dead_players_drop_items", Lua_Game_Get_Dead_Players_Drop_Items},
         {"deserialize", L_TableFunction<Lua_Game_Deserialize>},
 	{"difficulty", Lua_Game_Get_Difficulty},
@@ -2586,6 +2600,7 @@ const luaL_Reg Lua_Game_Get[] = {
 };
 
 const luaL_Reg Lua_Game_Set[] = {
+	{"view_player", Lua_Game_Set_View_Player},
 	{"dead_players_drop_items", Lua_Game_Set_Dead_Players_Drop_Items},
 	{"monsters_replenish", Lua_Game_Set_Monsters_Replenish},
 	{"proper_item_accounting", Lua_Game_Set_Proper_Item_Accounting},
