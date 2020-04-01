@@ -3,6 +3,7 @@
 build/
 xcuserdata/
 project.xcworkspace/
+.vscode/
 Makefile
 Makefile.in
 GNUmakefile
