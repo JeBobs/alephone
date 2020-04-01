@@ -273,8 +273,8 @@ void SetScriptHUDText(int player, int idx, const char* text) {
   if(!text) ScriptHUDElements[player][idx].text.clear();
   else ScriptHUDElements[player][idx].text = text;
 
-  strncpy(ScriptHUDElements[player][idx].text, text, ScriptHUDElement::Len);
-  ScriptHUDElements[player][idx].text[ScriptHUDElement::Len-1] = 0;
+  //strncpy(ScriptHUDElements[player][idx].text, text, ScriptHUDElement::Len);
+  //ScriptHUDElements[player][idx].text[ScriptHUDElement::Len-1] = 0;
 }
 
 bool SetScriptHUDIcon(int player, int idx, const char* text, size_t rem) {

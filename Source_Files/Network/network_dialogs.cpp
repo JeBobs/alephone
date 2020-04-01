@@ -197,7 +197,7 @@ bool network_gather(bool inResumingGame)
 		myPlayerInfo.desired_color= myPlayerInfo.color;
 		memset(myPlayerInfo.long_serial_number, 0, LONG_SERIAL_NUMBER_LENGTH);
 		
-		unique_ptr<GameAvailableMetaserverAnnouncer> metaserverAnnouncer;
+		std::unique_ptr<GameAvailableMetaserverAnnouncer> metaserverAnnouncer;
 		if(NetEnter())
 		{
 			bool gather_dialog_result;
@@ -2498,17 +2498,10 @@ private:
 	dialog m_dialog;
 };
 
-<<<<<<< HEAD
 std::unique_ptr<GatherDialog>
 GatherDialog::Create()
 {
 	return std::unique_ptr<GatherDialog>(new SdlGatherDialog);
-=======
-unique_ptr<GatherDialog>
-GatherDialog::Create()
-{
-	return unique_ptr<GatherDialog>(new SdlGatherDialog);
->>>>>>> nuke auto_ptr (good riddance)
 }
 
 extern struct color_table *build_8bit_system_color_table(void);
@@ -2677,17 +2670,10 @@ private:
 	dialog m_dialog;
 };
 
-<<<<<<< HEAD
 std::unique_ptr<JoinDialog>
 JoinDialog::Create()
 {
 	return std::unique_ptr<JoinDialog>(new SdlJoinDialog);
-=======
-unique_ptr<JoinDialog>
-JoinDialog::Create()
-{
-	return unique_ptr<JoinDialog>(new SdlJoinDialog);
->>>>>>> nuke auto_ptr (good riddance)
 }
 
 class SdlSetupNetgameDialog : public SetupNetgameDialog
@@ -2958,17 +2944,10 @@ private:
 	dialog m_dialog;
 };
 
-<<<<<<< HEAD
 std::unique_ptr<SetupNetgameDialog>
 SetupNetgameDialog::Create ()
 {
 	return std::unique_ptr<SetupNetgameDialog>(new SdlSetupNetgameDialog);
-=======
-unique_ptr<SetupNetgameDialog>
-SetupNetgameDialog::Create ()
-{
-	return unique_ptr<SetupNetgameDialog>(new SdlSetupNetgameDialog);
->>>>>>> nuke auto_ptr (good riddance)
 }
 
 // This should really be done better, I guess, but most people will never see it long enough to read it.
