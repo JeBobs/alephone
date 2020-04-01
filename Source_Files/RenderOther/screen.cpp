@@ -1252,7 +1252,8 @@ void render_screen(short ticks_elapsed)
         	world_view->yaw = interpolate_angles(current_player->facing_last_tick, current_player->facing, heartbeat_fraction);
         	world_view->pitch = interpolate_angles(current_player->elevation_last_tick, current_player->elevation, heartbeat_fraction);
         	world_view->maximum_depth_intensity = current_player->weapon_intensity_last_tick + (current_player->weapon_intensity - current_player->weapon_intensity_last_tick) * heartbeat_fraction;
-        
+        // Need to figure out if this is needed 
+		/*
 			world_view->virtual_yaw = interpolate_angles(
 					(current_player->facing_last_tick * FIXED_ONE) + virtual_aim_delta().yaw, 
 					(current_player->facing * FIXED_ONE) + virtual_aim_delta().yaw, 
@@ -1262,6 +1263,7 @@ void render_screen(short ticks_elapsed)
 				(current_player->elevation_last_tick * FIXED_ONE) + virtual_aim_delta().pitch,
 				(current_player->elevation * FIXED_ONE) + virtual_aim_delta().pitch,
 				heartbeat_fraction);
+				*/
 		}
 	world_view->shading_mode = current_player->infravision_duration ? _shading_infravision : _shading_normal;
 
